@@ -9,6 +9,7 @@
 
 import wx
 import wx.xrc
+import wx.grid
 
 import gettext
 _ = gettext.gettext
@@ -28,7 +29,30 @@ class gui_box ( wx.Frame ):
 
         bSizer2 = wx.BoxSizer( wx.HORIZONTAL )
 
-        self.gui_list = wx.ListCtrl( self, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, wx.LC_REPORT )
+        self.gui_list = wx.grid.Grid( self, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, 0 )
+
+        # Grid
+        self.gui_list.CreateGrid( 2, 2 )
+        self.gui_list.EnableEditing( False )
+        self.gui_list.EnableGridLines( True )
+        self.gui_list.EnableDragGridSize( False )
+        self.gui_list.SetMargins( 0, 0 )
+
+        # Columns
+        self.gui_list.SetColSize( 0, 197 )
+        self.gui_list.SetColSize( 1, 201 )
+        self.gui_list.EnableDragColMove( False )
+        self.gui_list.EnableDragColSize( False )
+        self.gui_list.SetColLabelAlignment( wx.ALIGN_CENTER, wx.ALIGN_CENTER )
+
+        # Rows
+        self.gui_list.EnableDragRowSize( True )
+        self.gui_list.SetRowLabelAlignment( wx.ALIGN_CENTER, wx.ALIGN_CENTER )
+
+        # Label Appearance
+
+        # Cell Defaults
+        self.gui_list.SetDefaultCellAlignment( wx.ALIGN_LEFT, wx.ALIGN_TOP )
         bSizer2.Add( self.gui_list, 1, wx.ALL|wx.EXPAND, 5 )
 
 
