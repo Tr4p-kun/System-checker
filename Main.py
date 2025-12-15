@@ -17,7 +17,7 @@ class Hardware:
         ]
 
 
-        self.info_list = [
+        self.info_windows = [
             ("PC Name", platform.node()),
             ("System", platform.system()),
             ("Release", platform.release()),
@@ -41,15 +41,12 @@ class Hardware:
 
 class Software:
     c = wmi.WMI()
-    for process in c.Win32_Process():
-        # print(process.ProcessId, process.Name)
-        id_list = str(process.ProcessId)
-        #print(id_list)
-        test = id_list.strip().split("\n")
-        for i in test:
-            a = []
-            a.extend(test)
-            print(a)
+    process_ids = []
+
+    for process in c.Win32_Process():   # Code von ChatGPT: für umwandel von strings in eine liste
+        process_ids.append(process.ProcessId)
+
+    print(len(process_ids))
 
 
 
@@ -58,39 +55,43 @@ class MainFrame(GUI.gui_box, Hardware, Software):
         GUI.gui_box.__init__(self, parent)
         Hardware.__init__(self)
         Software.__init__(self)
-        # self.init_logic()
-        # self.adder()
+        self.init_logic()
+        self.adder()
         c = wmi.WMI()
 
-    # def init_logic(self):
-    #     self.gui_list.InsertColumn(0, "Info")
-    #     self.gui_list.InsertColumn(1, "Wert")
-    #
-    # def adder(self):
-    #     for i, (prop, val) in enumerate(self.selected_list):    # CHATGPT: Er sollte mir das Hardcoded in eine schleife umwandeln
-    #         index = self.gui_list.InsertItem(i, prop)
-    #         self.gui_list.SetItem(index, 1, str(val))
-    #         print(str(val))
-    #
-    # def active_standart( self, event ):
-    #     self.selected_list = self.standart
-    #     self.gui_list.DeleteAllItems()
-    #     self.adder()
-    #
-    # def active_hardware( self, event ):
-    #     self.selected_list = self.info_hardware
-    #     self.gui_list.DeleteAllItems()
-    #     self. adder()
-    #
-    # def active_windows( self, event ):
-    #     self.selected_list = self.info_list
-    #     self.gui_list.DeleteAllItems()
-    #     self.adder()
-    #
-    # def active_extra( self, event ):
-    #     self.selected_list = self.info_extra
-    #     self.gui_list.DeleteAllItems()
-    #     self.adder()
+    def init_logic(self):
+        self.gui_box.SetColLabelValue(0, "Info")
+        self.gui_box.SetColLabelValue(1, "Wert")
+
+    def adder(self):
+        grid = self.gui_box
+
+        grid.ClearGrid()
+
+        if grid.GetNumberRows() > 0:
+            grid.DeleteRows(0, grid.GetNumberRows())
+
+        grid.AppendRows(len(self.selected_list))
+
+        for row, (prop, val) in enumerate(self.selected_list):
+            grid.SetCellValue(row, 0, str(prop))
+            grid.SetCellValue(row, 1, str(val))
+
+    def active_standart( self, event ):
+        self.selected_list = self.standart
+        self.adder()
+
+    def active_hardware(self, event):
+        self.selected_list = self.info_hardware
+        self.adder()
+
+    def active_windows( self, event ):
+        self.selected_list = self.info_windows
+        self.adder()
+
+    def active_extra( self, event ):
+        self.selected_list = self.info_extra
+        self.adder()
 
 def start():
     app = wx.App()
