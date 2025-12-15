@@ -21,7 +21,7 @@ _ = gettext.gettext
 class gui_box ( wx.Frame ):
 
     def __init__( self, parent ):
-        wx.Frame.__init__ ( self, parent, id = wx.ID_ANY, title = wx.EmptyString, pos = wx.DefaultPosition, size = wx.Size( 500,300 ), style = wx.DEFAULT_FRAME_STYLE|wx.TAB_TRAVERSAL )
+        wx.Frame.__init__ ( self, parent, id = wx.ID_ANY, title = wx.EmptyString, pos = wx.DefaultPosition, size = wx.Size( 499,300 ), style = wx.DEFAULT_FRAME_STYLE|wx.TAB_TRAVERSAL )
 
         self.SetSizeHints( wx.DefaultSize, wx.DefaultSize )
 
@@ -29,7 +29,7 @@ class gui_box ( wx.Frame ):
 
         bSizer2 = wx.BoxSizer( wx.HORIZONTAL )
 
-        self.gui_box = wx.grid.Grid( self, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.gui_box = wx.grid.Grid( self, wx.ID_ANY, wx.DefaultPosition, wx.Size( 500,500 ), 0 )
 
         # Grid
         self.gui_box.CreateGrid( 2, 2 )
@@ -95,9 +95,13 @@ class gui_box ( wx.Frame ):
         self.Centre( wx.BOTH )
 
         # Connect Events
+        self.Bind( wx.EVT_ACTIVATE, self.activate_window_activate )
+        self.Bind( wx.EVT_ICONIZE, self.activate_window_icon )
         self.Bind( wx.EVT_MAXIMIZE, self.activate_window_max )
-        self.Bind( wx.EVT_MOVE, self.activate_window_move )
-        self.Bind( wx.EVT_MOVING, self.activate_window_moving )
+        self.Bind( wx.EVT_MOTION, self.activate_window_move )
+        self.Bind( wx.EVT_MOVE_END, self.activate_window_end )
+        self.Bind( wx.EVT_MOVE_START, self.activate_window_start )
+        self.Bind( wx.EVT_SIZE, self.activate_window_size )
         self.Bind( wx.EVT_MENU, self.active_standart, id = self.standart_men.GetId() )
         self.Bind( wx.EVT_MENU, self.active_hardware, id = self.hardware_men.GetId() )
         self.Bind( wx.EVT_MENU, self.active_windows, id = self.windows_men.GetId() )
@@ -108,13 +112,25 @@ class gui_box ( wx.Frame ):
 
 
     # Virtual event handlers, override them in your derived class
+    def activate_window_activate( self, event ):
+        event.Skip()
+
+    def activate_window_icon( self, event ):
+        event.Skip()
+
     def activate_window_max( self, event ):
         event.Skip()
 
     def activate_window_move( self, event ):
         event.Skip()
 
-    def activate_window_moving( self, event ):
+    def activate_window_end( self, event ):
+        event.Skip()
+
+    def activate_window_start( self, event ):
+        event.Skip()
+
+    def activate_window_size( self, event ):
         event.Skip()
 
     def active_standart( self, event ):

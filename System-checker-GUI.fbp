@@ -50,7 +50,7 @@
       <property name="minimum_size"></property>
       <property name="name">gui_box</property>
       <property name="pos"></property>
-      <property name="size">500,300</property>
+      <property name="size">499,300</property>
       <property name="style">wxDEFAULT_FRAME_STYLE</property>
       <property name="subclass">; ; forward_declare</property>
       <property name="title"></property>
@@ -60,9 +60,13 @@
       <property name="window_name"></property>
       <property name="window_style">wxTAB_TRAVERSAL</property>
       <property name="xrc_skip_sizer">1</property>
+      <event name="OnActivate">activate_window_activate</event>
+      <event name="OnIconize">activate_window_icon</event>
       <event name="OnMaximize">activate_window_max</event>
-      <event name="OnMove">activate_window_move</event>
-      <event name="OnMoving">activate_window_moving</event>
+      <event name="OnMotion">activate_window_move</event>
+      <event name="OnMoveEnd">activate_window_end</event>
+      <event name="OnMoveStart">activate_window_start</event>
+      <event name="OnSize">activate_window_size</event>
       <object class="wxBoxSizer" expanded="true">
         <property name="minimum_size"></property>
         <property name="name">bSizer1</property>
@@ -157,7 +161,7 @@
                 <property name="row_sizes">25,25</property>
                 <property name="rows">2</property>
                 <property name="show">1</property>
-                <property name="size"></property>
+                <property name="size">500,500</property>
                 <property name="subclass">; ; forward_declare</property>
                 <property name="toolbar_pane">0</property>
                 <property name="tooltip"></property>

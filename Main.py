@@ -1,8 +1,8 @@
 import platform
 import wx
+import wx.aui
 import GUI
 import wmi
-import time
 
 class Hardware:
     def __init__(self):
@@ -93,17 +93,36 @@ class MainFrame(GUI.gui_box, Hardware, Software):
         self.selected_list = self.info_extra
         self.adder()
 
-    def activate_window_max( self, event ):
+    def resize(self):
+        dsize = []
         dsize = self.GetSize()
-        print(dsize)
+        # print(dsize[0])
+        self.gui_box.SetColSize(0, (dsize[0] // 2) - 50)
+        self.gui_box.SetColSize(1, dsize[0] // 2)
+        self.gui_box.Layout()
+        self.Layout()
 
-    def activate_window_move( self, event ):
-        dsize = self.GetSize()
-        print(dsize)
+    # def activate_window_max( self, event ):
+    #     dsize = []
+    #     dsize = self.GetSize()
+    #     # print(dsize[0])
+    #     self.gui_box.SetColSize(0, (dsize[0] // 2) - 50)
+    #     self.gui_box.SetColSize(1, dsize[0] // 2)
 
-    def activate_window_moving( self, event ):
-        dsize = self.GetSize()
-        print(dsize)
+    # def activate_window_icon( self, event ):
+    #     dsize = []
+    #     dsize = self.GetSize()
+    #     # print(dsize[0])
+    #     self.gui_box.SetColSize(0, (dsize[0] // 2) - 50)
+    #     self.gui_box.SetColSize(1, dsize[0] // 2)
+
+    def activate_window_size( self, event ):
+        if self.IsMaximized() == True:
+            self.resize()
+        else:
+            self.resize()
+
+
 
 
 
