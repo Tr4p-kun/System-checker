@@ -95,6 +95,9 @@ class gui_box ( wx.Frame ):
         self.Centre( wx.BOTH )
 
         # Connect Events
+        self.Bind( wx.EVT_MAXIMIZE, self.activate_window_max )
+        self.Bind( wx.EVT_MOVE, self.activate_window_move )
+        self.Bind( wx.EVT_MOVING, self.activate_window_moving )
         self.Bind( wx.EVT_MENU, self.active_standart, id = self.standart_men.GetId() )
         self.Bind( wx.EVT_MENU, self.active_hardware, id = self.hardware_men.GetId() )
         self.Bind( wx.EVT_MENU, self.active_windows, id = self.windows_men.GetId() )
@@ -105,6 +108,15 @@ class gui_box ( wx.Frame ):
 
 
     # Virtual event handlers, override them in your derived class
+    def activate_window_max( self, event ):
+        event.Skip()
+
+    def activate_window_move( self, event ):
+        event.Skip()
+
+    def activate_window_moving( self, event ):
+        event.Skip()
+
     def active_standart( self, event ):
         event.Skip()
 

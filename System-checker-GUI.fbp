@@ -60,6 +60,9 @@
       <property name="window_name"></property>
       <property name="window_style">wxTAB_TRAVERSAL</property>
       <property name="xrc_skip_sizer">1</property>
+      <event name="OnMaximize">activate_window_max</event>
+      <event name="OnMove">activate_window_move</event>
+      <event name="OnMoving">activate_window_moving</event>
       <object class="wxBoxSizer" expanded="true">
         <property name="minimum_size"></property>
         <property name="name">bSizer1</property>

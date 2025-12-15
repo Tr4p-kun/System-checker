@@ -2,6 +2,7 @@ import platform
 import wx
 import GUI
 import wmi
+import time
 
 class Hardware:
     def __init__(self):
@@ -57,19 +58,18 @@ class MainFrame(GUI.gui_box, Hardware, Software):
         Software.__init__(self)
         self.init_logic()
         self.adder()
-        c = wmi.WMI()
 
     def init_logic(self):
         self.gui_box.SetColLabelValue(0, "Info")
         self.gui_box.SetColLabelValue(1, "Wert")
 
-    def adder(self):
+    def adder(self):    # Code von ChatGPT: habe meinen code von wxlistctrl zu wxgrid umschreiben lassen
         grid = self.gui_box
 
-        grid.ClearGrid()
+        grid.ClearGrid()    # Löscht die inhalt des Grid´s
 
-        if grid.GetNumberRows() > 0:
-            grid.DeleteRows(0, grid.GetNumberRows())
+        if grid.GetNumberRows() > 0:    # Checkt ob rows noch da sind
+            grid.DeleteRows(0, grid.GetNumberRows()) # Löscht die reihen des Grid´s
 
         grid.AppendRows(len(self.selected_list))
 
@@ -93,11 +93,27 @@ class MainFrame(GUI.gui_box, Hardware, Software):
         self.selected_list = self.info_extra
         self.adder()
 
+    def activate_window_max( self, event ):
+        dsize = self.GetSize()
+        print(dsize)
+
+    def activate_window_move( self, event ):
+        dsize = self.GetSize()
+        print(dsize)
+
+    def activate_window_moving( self, event ):
+        dsize = self.GetSize()
+        print(dsize)
+
+
+
+
 def start():
     app = wx.App()
     frm = MainFrame(None)
     frm.Show()
     app.MainLoop()
+
 
 
 if __name__ == '__main__':
