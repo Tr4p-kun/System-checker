@@ -74,6 +74,7 @@ class MainFrame(GUI.gui_box, Hardware, Software):
         Software.__init__(self)
         self.init_logic()
         self.adder()
+        self.initializer = 0
 
     def init_logic(self):
         self.gui_box.SetColLabelValue(0, "Info")
@@ -123,21 +124,25 @@ class MainFrame(GUI.gui_box, Hardware, Software):
         else:
             self.resize()
 
-    def switch_rule(self):
-        switcher = 0 # TODO
-        switcher += 1
-        return switcher
-
     def activate_window_button_switch( self, event ):
-        switcher = self.switch_rule()
-        print(switcher)
-        if switcher == 1:
-            self.gui_box.SetColLabelValue(0, "PID")
-            self.gui_box.SetColLabelValue(1, "Name")
-            self.gui_box.Layout()
-            self.Layout()
-        elif switcher == 2:
-            print("hello")
+        self.initializer += 1   # gemini switch case code
+        switch_rule = self.initializer % 5 # größere zahl größere switch case
+        switch_rule += 1
+        print(switch_rule)
+        match switch_rule:
+            case 1:
+                self.gui_box.SetColLabelValue(0, "Info")
+                self.gui_box.SetColLabelValue(1, "Wert")
+                self.gui_box.Layout()
+                self.Layout()
+            case 2:
+                self.gui_box.SetColLabelValue(0, "PID")
+                self.gui_box.SetColLabelValue(1, "Name")
+                self.gui_box.Layout()
+                self.Layout()
+            case 3:
+                print("3")
+
 
 
 def start():
