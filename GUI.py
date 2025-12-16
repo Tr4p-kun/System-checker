@@ -21,9 +21,9 @@ _ = gettext.gettext
 class gui_box ( wx.Frame ):
 
     def __init__( self, parent ):
-        wx.Frame.__init__ ( self, parent, id = wx.ID_ANY, title = wx.EmptyString, pos = wx.DefaultPosition, size = wx.Size( 499,300 ), style = wx.DEFAULT_FRAME_STYLE|wx.TAB_TRAVERSAL )
+        wx.Frame.__init__ ( self, parent, id = wx.ID_ANY, title = wx.EmptyString, pos = wx.DefaultPosition, size = wx.Size( 500,300 ), style = wx.DEFAULT_FRAME_STYLE|wx.TAB_TRAVERSAL )
 
-        self.SetSizeHints( wx.DefaultSize, wx.DefaultSize )
+        self.SetSizeHints( wx.Size( 338,300 ), wx.DefaultSize )
 
         bSizer1 = wx.BoxSizer( wx.VERTICAL )
 
@@ -64,8 +64,11 @@ class gui_box ( wx.Frame ):
 
         bSizer3 = wx.BoxSizer( wx.HORIZONTAL )
 
-        self.m_button1 = wx.Button( self, wx.ID_ANY, _(u"MyButton"), wx.DefaultPosition, wx.DefaultSize, 0 )
-        bSizer3.Add( self.m_button1, 0, wx.ALL, 5 )
+
+        bSizer3.Add( ( 0, 0), 1, wx.EXPAND, 5 )
+
+        self.window_button_switch = wx.Button( self, wx.ID_ANY, _(u"Switch"), wx.DefaultPosition, wx.DefaultSize, 0 )
+        bSizer3.Add( self.window_button_switch, 0, wx.ALL, 5 )
 
 
         bSizer1.Add( bSizer3, 0, wx.EXPAND, 5 )
@@ -102,6 +105,7 @@ class gui_box ( wx.Frame ):
         self.Bind( wx.EVT_MOVE_END, self.activate_window_end )
         self.Bind( wx.EVT_MOVE_START, self.activate_window_start )
         self.Bind( wx.EVT_SIZE, self.activate_window_size )
+        self.window_button_switch.Bind( wx.EVT_BUTTON, self.activate_window_button_switch )
         self.Bind( wx.EVT_MENU, self.active_standart, id = self.standart_men.GetId() )
         self.Bind( wx.EVT_MENU, self.active_hardware, id = self.hardware_men.GetId() )
         self.Bind( wx.EVT_MENU, self.active_windows, id = self.windows_men.GetId() )
@@ -131,6 +135,9 @@ class gui_box ( wx.Frame ):
         event.Skip()
 
     def activate_window_size( self, event ):
+        event.Skip()
+
+    def activate_window_button_switch( self, event ):
         event.Skip()
 
     def active_standart( self, event ):

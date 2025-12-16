@@ -41,13 +41,29 @@ class Hardware:
         self.selected_list = self.standart
 
 class Software:
-    c = wmi.WMI()
-    process_ids = []
+    def __init__(self):
+        self.test()
 
-    for process in c.Win32_Process():   # Code von ChatGPT: für umwandel von strings in eine liste
-        process_ids.append(process.ProcessId)
 
-    print(len(process_ids))
+    def wmi_process(self):
+        c = wmi.WMI()
+        process_ids = []
+
+        for process in c.Win32_Process():   # Code von ChatGPT: für umwandel von strings in eine liste
+            process_ids.append(process.ProcessId)
+
+        # print(len(process_ids))
+        # print(process_ids)
+        return process_ids
+
+    def test(self):
+        # print(self.wmi_process())
+        pass
+
+
+
+
+
 
 
 
@@ -96,25 +112,10 @@ class MainFrame(GUI.gui_box, Hardware, Software):
     def resize(self):
         dsize = []
         dsize = self.GetSize()
-        # print(dsize[0])
-        self.gui_box.SetColSize(0, (dsize[0] // 2) - 50)
-        self.gui_box.SetColSize(1, dsize[0] // 2)
+        self.gui_box.SetColSize(0, ((dsize[0] // 2) - 5)- 50)
+        self.gui_box.SetColSize(1, (dsize[0] // 2) - 50)
         self.gui_box.Layout()
         self.Layout()
-
-    # def activate_window_max( self, event ):
-    #     dsize = []
-    #     dsize = self.GetSize()
-    #     # print(dsize[0])
-    #     self.gui_box.SetColSize(0, (dsize[0] // 2) - 50)
-    #     self.gui_box.SetColSize(1, dsize[0] // 2)
-
-    # def activate_window_icon( self, event ):
-    #     dsize = []
-    #     dsize = self.GetSize()
-    #     # print(dsize[0])
-    #     self.gui_box.SetColSize(0, (dsize[0] // 2) - 50)
-    #     self.gui_box.SetColSize(1, dsize[0] // 2)
 
     def activate_window_size( self, event ):
         if self.IsMaximized() == True:
@@ -122,9 +123,21 @@ class MainFrame(GUI.gui_box, Hardware, Software):
         else:
             self.resize()
 
+    def switch_rule(self):
+        switcher = 0 # TODO
+        switcher += 1
+        return switcher
 
-
-
+    def activate_window_button_switch( self, event ):
+        switcher = self.switch_rule()
+        print(switcher)
+        if switcher == 1:
+            self.gui_box.SetColLabelValue(0, "PID")
+            self.gui_box.SetColLabelValue(1, "Name")
+            self.gui_box.Layout()
+            self.Layout()
+        elif switcher == 2:
+            print("hello")
 
 
 def start():
