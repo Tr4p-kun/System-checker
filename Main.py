@@ -1,77 +1,14 @@
-import platform
 import wx
 import wx.aui
 import GUI
-import wmi
+import python_read
+import powershell
 
-class Hardware:
-    def __init__(self):
-        self.standart = [
-            ("Archetecture", platform.architecture()[0]),
-            ("Machine", platform.machine()),
-            ("CPU", platform.processor()),
-            ("PC Name", platform.node()),
-            ("System", platform.system()),
-            ("Release", platform.release()),
-            ("Win Version", platform.win32_ver()[1:3]),
-            ("Win Edition", platform.win32_edition()),
-        ]
-
-
-        self.info_windows = [
-            ("PC Name", platform.node()),
-            ("System", platform.system()),
-            ("Release", platform.release()),
-            ("Win Version", platform.win32_ver()[1:3]),
-            ("Win Edition", platform.win32_edition()),
-
-        ]
-        self.info_hardware = [
-            ("Architecture", platform.architecture()[0]),
-            ("Machine", platform.machine()),
-            ("CPU", platform.processor()),
-        ]
-
-        self.info_extra = [
-            ("Detailed Name", platform.uname()),
-            ("Alias", platform.system_alias(platform.system(), platform.release(), platform.version())),
-            ("Version", platform.version())
-        ]
-
-        self.selected_list = self.standart
-
-class Software:
-    def __init__(self):
-        self.test()
-
-
-    def wmi_process(self):
-        c = wmi.WMI()
-        process_ids = []
-
-        for process in c.Win32_Process():   # Code von ChatGPT: für umwandel von strings in eine liste
-            process_ids.append(process.ProcessId)
-
-        # print(len(process_ids))
-        # print(process_ids)
-        return process_ids
-
-    def test(self):
-        # print(self.wmi_process())
-        pass
-
-
-
-
-
-
-
-
-class MainFrame(GUI.gui_box, Hardware, Software):
+class MainFrame(GUI.gui_box, python_read.Hardware, python_read.Software):
     def __init__(self, parent):
         GUI.gui_box.__init__(self, parent)
-        Hardware.__init__(self)
-        Software.__init__(self)
+        python_read.Hardware.__init__(self)
+        python_read.Software.__init__(self)
         self.init_logic()
         self.adder()
         self.initializer = 0
@@ -111,7 +48,6 @@ class MainFrame(GUI.gui_box, Hardware, Software):
         self.adder()
 
     def resize(self):
-        dsize = []
         dsize = self.GetSize()
         self.gui_box.SetColSize(0, ((dsize[0] // 2) - 5)- 50)
         self.gui_box.SetColSize(1, (dsize[0] // 2) - 50)
