@@ -67,8 +67,8 @@ class gui_box ( wx.Frame ):
 
         bSizer3.Add( ( 0, 0), 1, wx.EXPAND, 5 )
 
-        self.window_button_switch = wx.Button( self, wx.ID_ANY, _(u"Switch"), wx.DefaultPosition, wx.DefaultSize, 0 )
-        bSizer3.Add( self.window_button_switch, 0, wx.ALL, 5 )
+        self.m_staticline1 = wx.StaticLine( self, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, wx.LI_HORIZONTAL )
+        bSizer3.Add( self.m_staticline1, 0, wx.EXPAND |wx.ALL, 5 )
 
 
         bSizer1.Add( bSizer3, 0, wx.EXPAND, 5 )
@@ -90,7 +90,13 @@ class gui_box ( wx.Frame ):
         self.extra_men = wx.MenuItem( self.expose, wx.ID_ANY, _(u"Extra"), wx.EmptyString, wx.ITEM_NORMAL )
         self.expose.Append( self.extra_men )
 
-        self.bar.Append( self.expose, _(u"Filter") )
+        self.bar.Append( self.expose, _(u"Info") )
+
+        self.m_menu2 = wx.Menu()
+        self.task_mngr_men = wx.MenuItem( self.m_menu2, wx.ID_ANY, _(u"Self-Made (Warning ressource heavy)"), wx.EmptyString, wx.ITEM_NORMAL )
+        self.m_menu2.Append( self.task_mngr_men )
+
+        self.bar.Append( self.m_menu2, _(u"Task Manger") )
 
         self.SetMenuBar( self.bar )
 
@@ -105,11 +111,11 @@ class gui_box ( wx.Frame ):
         self.Bind( wx.EVT_MOVE_END, self.activate_window_end )
         self.Bind( wx.EVT_MOVE_START, self.activate_window_start )
         self.Bind( wx.EVT_SIZE, self.activate_window_size )
-        self.window_button_switch.Bind( wx.EVT_BUTTON, self.activate_window_button_switch )
         self.Bind( wx.EVT_MENU, self.active_standart, id = self.standart_men.GetId() )
         self.Bind( wx.EVT_MENU, self.active_hardware, id = self.hardware_men.GetId() )
         self.Bind( wx.EVT_MENU, self.active_windows, id = self.windows_men.GetId() )
         self.Bind( wx.EVT_MENU, self.active_extra, id = self.extra_men.GetId() )
+        self.Bind( wx.EVT_MENU, self.activate_task_mngr_men, id = self.task_mngr_men.GetId() )
 
     def __del__( self ):
         pass
@@ -137,9 +143,6 @@ class gui_box ( wx.Frame ):
     def activate_window_size( self, event ):
         event.Skip()
 
-    def activate_window_button_switch( self, event ):
-        event.Skip()
-
     def active_standart( self, event ):
         event.Skip()
 
@@ -150,6 +153,9 @@ class gui_box ( wx.Frame ):
         event.Skip()
 
     def active_extra( self, event ):
+        event.Skip()
+
+    def activate_task_mngr_men( self, event ):
         event.Skip()
 
 

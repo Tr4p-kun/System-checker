@@ -4,14 +4,16 @@ import GUI
 import python_read
 import powershell
 
-class MainFrame(GUI.gui_box, python_read.Hardware, python_read.Software):
+class MainFrame(GUI.gui_box, python_read.Hardware, python_read.Software, powershell.runner):
     def __init__(self, parent):
         GUI.gui_box.__init__(self, parent)
         python_read.Hardware.__init__(self)
         python_read.Software.__init__(self)
+        powershell.runner.__init__(self)
         self.init_logic()
         self.adder()
         self.initializer = 0
+        powershell.runner.get_uuid(self) # TODO für denn jsonizer nutzen
 
     def init_logic(self):
         self.gui_box.SetColLabelValue(0, "Info")
@@ -60,24 +62,13 @@ class MainFrame(GUI.gui_box, python_read.Hardware, python_read.Software):
         else:
             self.resize()
 
-    def activate_window_button_switch( self, event ):
-        self.initializer += 1   # gemini switch case code
-        switch_rule = self.initializer % 5 # größere zahl größere switch case
-        switch_rule += 1
-        print(switch_rule)
-        match switch_rule:
-            case 1:
-                self.gui_box.SetColLabelValue(0, "Info")
-                self.gui_box.SetColLabelValue(1, "Wert")
-                self.gui_box.Layout()
-                self.Layout()
-            case 2:
-                self.gui_box.SetColLabelValue(0, "PID")
-                self.gui_box.SetColLabelValue(1, "Name")
-                self.gui_box.Layout()
-                self.Layout()
-            case 3:
-                print("3")
+    def activate_task_mngr_men( self, event ):
+        self.gui_box.SetColLabelValue(0, "PID")
+        self.gui_box.SetColLabelValue(1, "Name")
+        self.gui_box.DeleteRows(0, self.gui_box.GetNumberRows())
+        self.gui_box.AppendRows(len(python_read.Software.wmi_process(self)))
+        self.gui_box.Layout()
+        self.Layout()
 
 
 
