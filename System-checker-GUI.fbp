@@ -277,7 +277,7 @@
         <property name="window_style"></property>
         <object class="wxMenu" expanded="true">
           <property name="label">Info</property>
-          <property name="name">expose</property>
+          <property name="name">info_bar</property>
           <property name="permission">protected</property>
           <object class="wxMenuItem" expanded="true">
             <property name="bitmap"></property>
@@ -338,7 +338,7 @@
         </object>
         <object class="wxMenu" expanded="true">
           <property name="label">Task Manger</property>
-          <property name="name">m_menu2</property>
+          <property name="name">mngr_bar</property>
           <property name="permission">protected</property>
           <object class="wxMenuItem" expanded="true">
             <property name="bitmap"></property>
@@ -353,6 +353,39 @@
             <property name="shortcut"></property>
             <property name="unchecked_bitmap"></property>
             <event name="OnMenuSelection">activate_task_mngr_men</event>
+          </object>
+          <object class="wxMenuItem" expanded="true">
+            <property name="bitmap"></property>
+            <property name="checked">0</property>
+            <property name="enabled">1</property>
+            <property name="help"></property>
+            <property name="id">wxID_ANY</property>
+            <property name="kind">wxITEM_NORMAL</property>
+            <property name="label">Windows</property>
+            <property name="name">task_mngr_win_men</property>
+            <property name="permission">none</property>
+            <property name="shortcut"></property>
+            <property name="unchecked_bitmap"></property>
+            <event name="OnMenuSelection">activate_task_mngr_win_men</event>
+          </object>
+        </object>
+        <object class="wxMenu" expanded="true">
+          <property name="label">Settings</property>
+          <property name="name">settings_bar</property>
+          <property name="permission">protected</property>
+          <object class="wxMenuItem" expanded="true">
+            <property name="bitmap"></property>
+            <property name="checked">0</property>
+            <property name="enabled">1</property>
+            <property name="help"></property>
+            <property name="id">wxID_ANY</property>
+            <property name="kind">wxITEM_NORMAL</property>
+            <property name="label">System controll</property>
+            <property name="name">m_menuItem7</property>
+            <property name="permission">none</property>
+            <property name="shortcut"></property>
+            <property name="unchecked_bitmap"></property>
+            <event name="OnMenuSelection">activate_sys_cntr_men</event>
           </object>
         </object>
       </object>

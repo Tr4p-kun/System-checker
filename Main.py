@@ -70,6 +70,11 @@ class MainFrame(GUI.gui_box, python_read.Hardware, python_read.Software, powersh
         self.gui_box.Layout()
         self.Layout()
 
+    def activate_task_mngr_win_men( self, event ):
+        powershell.runner.open_task_manger(self)
+
+    def activate_sys_cntr_men( self, event ):
+
 
 
 def start():

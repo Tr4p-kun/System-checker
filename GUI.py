@@ -77,26 +77,35 @@ class gui_box ( wx.Frame ):
         self.SetSizer( bSizer1 )
         self.Layout()
         self.bar = wx.MenuBar( 0 )
-        self.expose = wx.Menu()
-        self.standart_men = wx.MenuItem( self.expose, wx.ID_ANY, _(u"Standart"), wx.EmptyString, wx.ITEM_NORMAL )
-        self.expose.Append( self.standart_men )
+        self.info_bar = wx.Menu()
+        self.standart_men = wx.MenuItem( self.info_bar, wx.ID_ANY, _(u"Standart"), wx.EmptyString, wx.ITEM_NORMAL )
+        self.info_bar.Append( self.standart_men )
 
-        self.hardware_men = wx.MenuItem( self.expose, wx.ID_ANY, _(u"Hardware"), wx.EmptyString, wx.ITEM_NORMAL )
-        self.expose.Append( self.hardware_men )
+        self.hardware_men = wx.MenuItem( self.info_bar, wx.ID_ANY, _(u"Hardware"), wx.EmptyString, wx.ITEM_NORMAL )
+        self.info_bar.Append( self.hardware_men )
 
-        self.windows_men = wx.MenuItem( self.expose, wx.ID_ANY, _(u"Windows"), wx.EmptyString, wx.ITEM_NORMAL )
-        self.expose.Append( self.windows_men )
+        self.windows_men = wx.MenuItem( self.info_bar, wx.ID_ANY, _(u"Windows"), wx.EmptyString, wx.ITEM_NORMAL )
+        self.info_bar.Append( self.windows_men )
 
-        self.extra_men = wx.MenuItem( self.expose, wx.ID_ANY, _(u"Extra"), wx.EmptyString, wx.ITEM_NORMAL )
-        self.expose.Append( self.extra_men )
+        self.extra_men = wx.MenuItem( self.info_bar, wx.ID_ANY, _(u"Extra"), wx.EmptyString, wx.ITEM_NORMAL )
+        self.info_bar.Append( self.extra_men )
 
-        self.bar.Append( self.expose, _(u"Info") )
+        self.bar.Append( self.info_bar, _(u"Info") )
 
-        self.m_menu2 = wx.Menu()
-        self.task_mngr_men = wx.MenuItem( self.m_menu2, wx.ID_ANY, _(u"Self-Made (Warning ressource heavy)"), wx.EmptyString, wx.ITEM_NORMAL )
-        self.m_menu2.Append( self.task_mngr_men )
+        self.mngr_bar = wx.Menu()
+        self.task_mngr_men = wx.MenuItem( self.mngr_bar, wx.ID_ANY, _(u"Self-Made (Warning ressource heavy)"), wx.EmptyString, wx.ITEM_NORMAL )
+        self.mngr_bar.Append( self.task_mngr_men )
 
-        self.bar.Append( self.m_menu2, _(u"Task Manger") )
+        self.task_mngr_win_men = wx.MenuItem( self.mngr_bar, wx.ID_ANY, _(u"Windows"), wx.EmptyString, wx.ITEM_NORMAL )
+        self.mngr_bar.Append( self.task_mngr_win_men )
+
+        self.bar.Append( self.mngr_bar, _(u"Task Manger") )
+
+        self.settings_bar = wx.Menu()
+        self.m_menuItem7 = wx.MenuItem( self.settings_bar, wx.ID_ANY, _(u"System controll"), wx.EmptyString, wx.ITEM_NORMAL )
+        self.settings_bar.Append( self.m_menuItem7 )
+
+        self.bar.Append( self.settings_bar, _(u"Settings") )
 
         self.SetMenuBar( self.bar )
 
@@ -116,6 +125,8 @@ class gui_box ( wx.Frame ):
         self.Bind( wx.EVT_MENU, self.active_windows, id = self.windows_men.GetId() )
         self.Bind( wx.EVT_MENU, self.active_extra, id = self.extra_men.GetId() )
         self.Bind( wx.EVT_MENU, self.activate_task_mngr_men, id = self.task_mngr_men.GetId() )
+        self.Bind( wx.EVT_MENU, self.activate_task_mngr_win_men, id = self.task_mngr_win_men.GetId() )
+        self.Bind( wx.EVT_MENU, self.activate_sys_cntr_men, id = self.m_menuItem7.GetId() )
 
     def __del__( self ):
         pass
@@ -156,6 +167,12 @@ class gui_box ( wx.Frame ):
         event.Skip()
 
     def activate_task_mngr_men( self, event ):
+        event.Skip()
+
+    def activate_task_mngr_win_men( self, event ):
+        event.Skip()
+
+    def activate_sys_cntr_men( self, event ):
         event.Skip()
 
 

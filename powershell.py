@@ -17,3 +17,14 @@ class runner():
         else:
             print(uuid_getter.stdout.decode())
 
+    def open_task_manger(self):
+        run_task_manager = self.run("Taskmgr.exe")
+        if run_task_manager.returncode != 0:
+            print("An error occured: %s", run_task_manager.stderr)
+
+
+    def open_sys_cntrl(self):
+        run_sys_cntrl = self.run("control.exe")
+        if run_sys_cntrl.returncode != 0:
+            print("An error occured: %s", run_sys_cntrl.stderr)
+
