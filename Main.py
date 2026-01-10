@@ -13,7 +13,8 @@ class MainFrame(GUI.gui_box, python_read.Hardware, python_read.Software, powersh
         self.init_logic()
         self.adder()
         self.initializer = 0
-        powershell.runner.get_uuid(self) # TODO für denn jsonizer nutzen
+        #powershell.runner.get_uuid(self) # TODO für denn jsonizer nutzen
+        powershell.runner.info_collector(self)
 
     def init_logic(self):
         self.gui_box.SetColLabelValue(0, "Info")
@@ -74,6 +75,9 @@ class MainFrame(GUI.gui_box, python_read.Hardware, python_read.Software, powersh
         powershell.runner.open_task_manger(self)
 
     def activate_sys_cntr_men( self, event ):
+        powershell.runner.open_sys_cntrl(self)
+
+
 
 
 

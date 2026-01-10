@@ -2,14 +2,15 @@ import wmi
 import platform
 
 import jsonizer
-
+import powershell
+from powershell import runner
 
 class Hardware:
     def __init__(self):
         self.standart = [
             ("Archetecture", platform.architecture()[0]),
             ("Machine", platform.machine()),
-            ("CPU", platform.processor()),
+            ("CPU", powershell.runner.info_collector(self)[0]),
             ("PC Name", platform.node()),
             ("System", platform.system()),
             ("Release", platform.release()),
@@ -29,7 +30,9 @@ class Hardware:
         self.info_hardware = [
             ("Architecture", platform.architecture()[0]),
             ("Machine", platform.machine()),
-            ("CPU", platform.processor()),
+            ("CPU", powershell.runner.info_collector(self)[0]),
+            ("GPU", powershell.runner.info_collector(self)[2]),
+            ("Motherboard", powershell.runner.info_collector(self)[1])
         ]
 
         self.info_extra = [

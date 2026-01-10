@@ -28,3 +28,18 @@ class runner():
         if run_sys_cntrl.returncode != 0:
             print("An error occured: %s", run_sys_cntrl.stderr)
 
+    def info_collector(self):
+        get_info = ["Get-CimInstance Win32_Processor | Select-Object -ExpandProperty Name","Get-CimInstance Win32_Baseboard | Select-Object -ExpandProperty Product","Get-CimInstance Win32_VideoController | Select-Object -ExpandProperty Name"]
+        result = []
+        for cmd in get_info:
+            worker = self.run(cmd)
+            if worker.returncode != 0:
+                result.append(f"Error: {worker.stderr.decode().strip()}")
+            else:
+                result.append(worker.stdout.decode().strip())
+        return result
+
+# Get-CimInstance Win32_LogicalDisk
+#  Get-CimInstance Win32_PhysicalMemory
+
+
