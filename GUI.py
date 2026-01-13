@@ -70,6 +70,12 @@ class gui_box ( wx.Frame ):
         self.m_staticline1 = wx.StaticLine( self, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, wx.LI_HORIZONTAL )
         bSizer3.Add( self.m_staticline1, 0, wx.EXPAND |wx.ALL, 5 )
 
+        self.main_button_open_panel_settings = wx.Button( self, wx.ID_ANY, _(u"System Settings"), wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.main_button_open_panel_settings.SetForegroundColour( wx.SystemSettings.GetColour( wx.SYS_COLOUR_CAPTIONTEXT ) )
+        self.main_button_open_panel_settings.SetBackgroundColour( wx.SystemSettings.GetColour( wx.SYS_COLOUR_WINDOW ) )
+
+        bSizer3.Add( self.main_button_open_panel_settings, 0, wx.ALL, 5 )
+
 
         bSizer1.Add( bSizer3, 0, wx.EXPAND, 5 )
 
@@ -92,21 +98,6 @@ class gui_box ( wx.Frame ):
 
         self.bar.Append( self.info_bar, _(u"Info") )
 
-        self.mngr_bar = wx.Menu()
-        self.task_mngr_men = wx.MenuItem( self.mngr_bar, wx.ID_ANY, _(u"Self-Made (Warning ressource heavy)"), wx.EmptyString, wx.ITEM_NORMAL )
-        self.mngr_bar.Append( self.task_mngr_men )
-
-        self.task_mngr_win_men = wx.MenuItem( self.mngr_bar, wx.ID_ANY, _(u"Windows"), wx.EmptyString, wx.ITEM_NORMAL )
-        self.mngr_bar.Append( self.task_mngr_win_men )
-
-        self.bar.Append( self.mngr_bar, _(u"Task Manger") )
-
-        self.settings_bar = wx.Menu()
-        self.m_menuItem7 = wx.MenuItem( self.settings_bar, wx.ID_ANY, _(u"System controll"), wx.EmptyString, wx.ITEM_NORMAL )
-        self.settings_bar.Append( self.m_menuItem7 )
-
-        self.bar.Append( self.settings_bar, _(u"Settings") )
-
         self.SetMenuBar( self.bar )
 
 
@@ -120,13 +111,11 @@ class gui_box ( wx.Frame ):
         self.Bind( wx.EVT_MOVE_END, self.activate_window_end )
         self.Bind( wx.EVT_MOVE_START, self.activate_window_start )
         self.Bind( wx.EVT_SIZE, self.activate_window_size )
+        self.main_button_open_panel_settings.Bind( wx.EVT_BUTTON, self.main_button_open_panel_settings_evnt )
         self.Bind( wx.EVT_MENU, self.active_standart, id = self.standart_men.GetId() )
         self.Bind( wx.EVT_MENU, self.active_hardware, id = self.hardware_men.GetId() )
         self.Bind( wx.EVT_MENU, self.active_windows, id = self.windows_men.GetId() )
         self.Bind( wx.EVT_MENU, self.active_extra, id = self.extra_men.GetId() )
-        self.Bind( wx.EVT_MENU, self.activate_task_mngr_men, id = self.task_mngr_men.GetId() )
-        self.Bind( wx.EVT_MENU, self.activate_task_mngr_win_men, id = self.task_mngr_win_men.GetId() )
-        self.Bind( wx.EVT_MENU, self.activate_sys_cntr_men, id = self.m_menuItem7.GetId() )
 
     def __del__( self ):
         pass
@@ -154,6 +143,9 @@ class gui_box ( wx.Frame ):
     def activate_window_size( self, event ):
         event.Skip()
 
+    def main_button_open_panel_settings_evnt( self, event ):
+        event.Skip()
+
     def active_standart( self, event ):
         event.Skip()
 
@@ -166,13 +158,135 @@ class gui_box ( wx.Frame ):
     def active_extra( self, event ):
         event.Skip()
 
-    def activate_task_mngr_men( self, event ):
+
+###########################################################################
+## Class Settings_Dlg
+###########################################################################
+
+class Settings_Dlg ( wx.Dialog ):
+
+    def __init__( self, parent ):
+        wx.Dialog.__init__ ( self, parent, id = wx.ID_ANY, title = wx.EmptyString, pos = wx.DefaultPosition, size = wx.Size( 740,300 ), style = wx.DEFAULT_DIALOG_STYLE )
+
+        self.SetSizeHints( wx.DefaultSize, wx.DefaultSize )
+
+        bSizer4 = wx.BoxSizer( wx.HORIZONTAL )
+
+        bSizer16 = wx.BoxSizer( wx.VERTICAL )
+
+        bSizer17 = wx.BoxSizer( wx.HORIZONTAL )
+
+
+        bSizer17.Add( ( 0, 0), 1, wx.EXPAND, 5 )
+
+        self.m_staticText2 = wx.StaticText( self, wx.ID_ANY, _(u"Windows Tools"), wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.m_staticText2.Wrap( -1 )
+
+        bSizer17.Add( self.m_staticText2, 0, wx.ALL, 5 )
+
+
+        bSizer17.Add( ( 0, 0), 1, wx.EXPAND, 5 )
+
+
+        bSizer16.Add( bSizer17, 0, wx.EXPAND, 5 )
+
+        bSizer5 = wx.BoxSizer( wx.HORIZONTAL )
+
+
+        bSizer5.Add( ( 0, 0), 1, wx.EXPAND, 5 )
+
+        gSizer1 = wx.GridSizer( 0, 1, 0, 0 )
+
+        self.windows_setting_task_manager_button = wx.Button( self, wx.ID_ANY, _(u"Task Manager"), wx.DefaultPosition, wx.DefaultSize, 0 )
+        gSizer1.Add( self.windows_setting_task_manager_button, 0, wx.ALL, 5 )
+
+        self.windows_setting_sys_cntrl_button = wx.Button( self, wx.ID_ANY, _(u"System Control"), wx.DefaultPosition, wx.DefaultSize, 0 )
+        gSizer1.Add( self.windows_setting_sys_cntrl_button, 0, wx.ALL, 5 )
+
+        self.windows_setting_perf_rel_button = wx.Button( self, wx.ID_ANY, _(u"Reliability monitoring"), wx.DefaultPosition, wx.DefaultSize, 0 )
+        gSizer1.Add( self.windows_setting_perf_rel_button, 0, wx.ALL, 5 )
+
+
+        bSizer5.Add( gSizer1, 0, wx.EXPAND, 0 )
+
+
+        bSizer5.Add( ( 0, 0), 1, wx.EXPAND, 5 )
+
+
+        bSizer16.Add( bSizer5, 1, wx.EXPAND, 5 )
+
+
+        bSizer4.Add( bSizer16, 0, wx.EXPAND, 5 )
+
+        bSizer161 = wx.BoxSizer( wx.VERTICAL )
+
+        bSizer171 = wx.BoxSizer( wx.HORIZONTAL )
+
+
+        bSizer171.Add( ( 0, 0), 1, wx.EXPAND, 5 )
+
+        self.m_staticText21 = wx.StaticText( self, wx.ID_ANY, _(u"System"), wx.DefaultPosition, wx.DefaultSize, 0 )
+        self.m_staticText21.Wrap( -1 )
+
+        bSizer171.Add( self.m_staticText21, 0, wx.ALL, 5 )
+
+
+        bSizer171.Add( ( 0, 0), 1, wx.EXPAND, 5 )
+
+
+        bSizer161.Add( bSizer171, 0, wx.EXPAND, 5 )
+
+        bSizer51 = wx.BoxSizer( wx.HORIZONTAL )
+
+
+        bSizer51.Add( ( 0, 0), 1, wx.EXPAND, 5 )
+
+        gSizer11 = wx.GridSizer( 0, 1, 0, 0 )
+
+        self.system_setting_bios_button = wx.Button( self, wx.ID_ANY, _(u"Bios"), wx.DefaultPosition, wx.DefaultSize, 0 )
+
+        self.system_setting_bios_button.SetAuthNeeded()
+        gSizer11.Add( self.system_setting_bios_button, 0, wx.ALL, 5 )
+
+
+        bSizer51.Add( gSizer11, 0, wx.EXPAND, 0 )
+
+
+        bSizer51.Add( ( 0, 0), 1, wx.EXPAND, 5 )
+
+
+        bSizer161.Add( bSizer51, 1, wx.EXPAND, 5 )
+
+
+        bSizer4.Add( bSizer161, 1, wx.EXPAND, 5 )
+
+
+        self.SetSizer( bSizer4 )
+        self.Layout()
+
+        self.Centre( wx.BOTH )
+
+        # Connect Events
+        self.windows_setting_task_manager_button.Bind( wx.EVT_BUTTON, self.windows_setting_task_manager_button_evnt )
+        self.windows_setting_sys_cntrl_button.Bind( wx.EVT_BUTTON, self.windows_setting_sys_cntrl_button_evnt )
+        self.windows_setting_perf_rel_button.Bind( wx.EVT_BUTTON, self.windows_setting_perf_rel_button_evnt )
+        self.system_setting_bios_button.Bind( wx.EVT_BUTTON, self.system_setting_bios_button_evnt )
+
+    def __del__( self ):
+        pass
+
+
+    # Virtual event handlers, override them in your derived class
+    def windows_setting_task_manager_button_evnt( self, event ):
         event.Skip()
 
-    def activate_task_mngr_win_men( self, event ):
+    def windows_setting_sys_cntrl_button_evnt( self, event ):
         event.Skip()
 
-    def activate_sys_cntr_men( self, event ):
+    def windows_setting_perf_rel_button_evnt( self, event ):
+        event.Skip()
+
+    def system_setting_bios_button_evnt( self, event ):
         event.Skip()
 
 

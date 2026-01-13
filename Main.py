@@ -3,18 +3,22 @@ import wx.aui
 import GUI
 import python_read
 import powershell
+import time
+
+start_time = time.time()
+
+
 
 class MainFrame(GUI.gui_box, python_read.Hardware, python_read.Software, powershell.runner):
     def __init__(self, parent):
         GUI.gui_box.__init__(self, parent)
         python_read.Hardware.__init__(self)
-        python_read.Software.__init__(self)
+        # python_read.Software.__init__(self)
         powershell.runner.__init__(self)
         self.init_logic()
         self.adder()
         self.initializer = 0
         #powershell.runner.get_uuid(self) # TODO für denn jsonizer nutzen
-        powershell.runner.info_collector(self)
 
     def init_logic(self):
         self.gui_box.SetColLabelValue(0, "Info")
@@ -63,21 +67,35 @@ class MainFrame(GUI.gui_box, python_read.Hardware, python_read.Software, powersh
         else:
             self.resize()
 
-    def activate_task_mngr_men( self, event ):
-        self.gui_box.SetColLabelValue(0, "PID")
-        self.gui_box.SetColLabelValue(1, "Name")
-        self.gui_box.DeleteRows(0, self.gui_box.GetNumberRows())
-        self.gui_box.AppendRows(len(python_read.Software.wmi_process(self)))
-        self.gui_box.Layout()
-        self.Layout()
+    # def activate_task_mngr_men( self, event ):
+    #     self.gui_box.SetColLabelValue(0, "PID")
+    #     self.gui_box.SetColLabelValue(1, "Name")
+    #     self.gui_box.DeleteRows(0, self.gui_box.GetNumberRows())
+    #     self.gui_box.AppendRows(len(python_read.Software.wmi_process(self)))
+    #     self.gui_box.Layout()
+    #     self.Layout()
 
-    def activate_task_mngr_win_men( self, event ):
-        powershell.runner.open_task_manger(self)
+    def main_button_open_panel_settings_evnt(self, event):
+        dlg = Setting_Dlg(parent=self)
+        dlg.ShowModal()
 
-    def activate_sys_cntr_men( self, event ):
-        powershell.runner.open_sys_cntrl(self)
+class Setting_Dlg(GUI.Settings_Dlg, powershell.runner):
+    def __init__(self, parent):
+        GUI.Settings_Dlg.__init__(self, parent)
 
 
+    def windows_setting_task_manager_button_evnt( self, event ):
+        powershell.runner.programm_opener(self, "Taskmgr.exe", admin=False)
+
+    def windows_setting_sys_cntrl_button_evnt( self, event ):
+        powershell.runner.programm_opener(self, "control.exe", admin=False)
+
+    def windows_setting_perf_rel_button_evnt( self, event ):
+        powershell.runner.programm_opener(self, "perfmon.exe /rel", admin=False)
+
+    def system_setting_bios_button_evnt( self, event ):
+        #powershell.runner.programm_opener(self, "shutdown.exe /r /fw /t 1", admin=True)
+        powershell.runner.programm_opener(self, "Set-Content -Path $env:USERPROFILE\\Desktop\\admin_test.txt -Value Admin-Erfolg", admin=True)
 
 
 
@@ -85,6 +103,9 @@ def start():
     app = wx.App()
     frm = MainFrame(None)
     frm.Show()
+    end_time = time.time()
+    duration = end_time - start_time
+    print(duration)
     app.MainLoop()
 
 
