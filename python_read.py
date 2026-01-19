@@ -63,7 +63,7 @@ class Hardware:
             ("RAM Slots", clean_powershell_output(daten_paket[3])),
             ("RAM Capacity", clean_powershell_output(daten_paket[4])),
             ("Ram Speed", clean_powershell_output(daten_paket[5])),
-            ("Hard Drive Name", clean_powershell_output(daten_paket[6])),
+            ("Hard Drive", clean_powershell_output(daten_paket[6])),
             ("Hard Drive Size", f"{convert_to_GB_size_rounded} GB"),
             ("Hard Drive Free Space", f"{convert_to_GB_free_rounded} GB" )
 

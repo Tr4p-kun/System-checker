@@ -38,7 +38,7 @@ class runner():
         "(Get-CimInstance Win32_PhysicalMemory | Select-Object -ExpandProperty Devicelocator) -join ','; "
         "(Get-CimInstance Win32_PhysicalMemory | ForEach-Object { $_.Capacity / 1GB }) -join ','; "
         "(Get-CimInstance Win32_PhysicalMemory | Select-Object -ExpandProperty Speed) -join ','; "
-        "(Get-CimInstance Win32_LogicalDisk | Select-Object -ExpandProperty VolumeName) -join ','; "
+        "(Get-CimInstance Win32_LogicalDisk | ForEach-Object { if ($_.VolumeName) { $_.VolumeName } else { $_.DeviceID } }) -join ','; "
         "(Get-CimInstance Win32_LogicalDisk | Select-Object -ExpandProperty Size) -join ','; "
         "(Get-CimInstance Win32_LogicalDisk | Select-Object -ExpandProperty FreeSpace) -join ','; "
         "Get-CimInstance Win32_Processor | Select-Object -ExpandProperty MaxClockSpeed; "

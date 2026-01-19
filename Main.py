@@ -4,6 +4,7 @@ import GUI
 import python_read
 import powershell
 import time
+import webbrowser
 
 start_time = time.time()
 
@@ -19,6 +20,7 @@ class MainFrame(GUI.gui_box, python_read.Hardware, python_read.Software, powersh
         self.adder()
         self.initializer = 0
         #powershell.runner.get_uuid(self) # TODO für denn jsonizer nutzen
+        MainFrame.SetTitle(self, "System Checker")
 
     def init_logic(self):
         self.gui_box.SetColLabelValue(0, "Info")
@@ -82,6 +84,7 @@ class MainFrame(GUI.gui_box, python_read.Hardware, python_read.Software, powersh
 class Setting_Dlg(GUI.Settings_Dlg, powershell.runner):
     def __init__(self, parent):
         GUI.Settings_Dlg.__init__(self, parent)
+        Setting_Dlg.SetTitle(self, "System Options")
 
 
     def windows_setting_task_manager_button_evnt( self, event ):
@@ -97,6 +100,37 @@ class Setting_Dlg(GUI.Settings_Dlg, powershell.runner):
         #powershell.runner.programm_opener(self, "shutdown.exe /r /fw /t 1", admin=True)
         powershell.runner.programm_opener(self, "Set-Content -Path $env:USERPROFILE\\Desktop\\admin_test.txt -Value Admin-Erfolg", admin=True)
 
+    def dlg_credit_button_evnt(self, event):
+        crd = Credit(parent=self)
+        crd.ShowModal()
+
+
+class Credit(GUI.Credit):
+    def __init__(self, parent):
+        GUI.Credit.__init__(self, parent)
+        self.original_bmp = self.credit_img.GetBitmap()
+        self.Bind(wx.EVT_SIZE, self.on_resize)
+        Credit.SetTitle(self, "Credits")
+
+    def bitmap_credit_click(self, event):
+        webbrowser.open_new_tab("https://github.com/Tr4p-kun")
+
+
+    def scale_bitmap(self, bitmap, width, height): #gemini
+        image = bitmap.ConvertToImage()
+        image = image.Scale(width, height, wx.IMAGE_QUALITY_HIGH)
+        return wx.Bitmap(image)
+
+
+    def on_resize(self, event): # gemini
+        size = self.GetClientSize()
+        new_w = size.x - 20
+        new_h = size.y - 95
+        if new_w > 0 and new_h > 0:
+            new_bmp = self.scale_bitmap(self.original_bmp, new_w, new_h)
+            self.credit_img.SetBitmap(new_bmp)
+        self.Layout()
+        event.Skip()
 
 
 def start():

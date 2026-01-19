@@ -10,6 +10,7 @@
 import wx
 import wx.xrc
 import wx.grid
+import wx.richtext
 
 import gettext
 _ = gettext.gettext
@@ -260,6 +261,17 @@ class Settings_Dlg ( wx.Dialog ):
 
         bSizer4.Add( bSizer161, 1, wx.EXPAND, 5 )
 
+        bSizer11 = wx.BoxSizer( wx.VERTICAL )
+
+
+        bSizer11.Add( ( 0, 0), 1, wx.EXPAND, 5 )
+
+        self.dlg_credit_button = wx.Button( self, wx.ID_ANY, _(u"Credit"), wx.DefaultPosition, wx.DefaultSize, 0 )
+        bSizer11.Add( self.dlg_credit_button, 0, wx.ALL, 5 )
+
+
+        bSizer4.Add( bSizer11, 0, wx.EXPAND, 5 )
+
 
         self.SetSizer( bSizer4 )
         self.Layout()
@@ -271,6 +283,7 @@ class Settings_Dlg ( wx.Dialog ):
         self.windows_setting_sys_cntrl_button.Bind( wx.EVT_BUTTON, self.windows_setting_sys_cntrl_button_evnt )
         self.windows_setting_perf_rel_button.Bind( wx.EVT_BUTTON, self.windows_setting_perf_rel_button_evnt )
         self.system_setting_bios_button.Bind( wx.EVT_BUTTON, self.system_setting_bios_button_evnt )
+        self.dlg_credit_button.Bind( wx.EVT_BUTTON, self.dlg_credit_button_evnt )
 
     def __del__( self ):
         pass
@@ -287,6 +300,46 @@ class Settings_Dlg ( wx.Dialog ):
         event.Skip()
 
     def system_setting_bios_button_evnt( self, event ):
+        event.Skip()
+
+    def dlg_credit_button_evnt( self, event ):
+        event.Skip()
+
+
+###########################################################################
+## Class Credit
+###########################################################################
+
+class Credit ( wx.Dialog ):
+
+    def __init__( self, parent ):
+        wx.Dialog.__init__ ( self, parent, id = wx.ID_ANY, title = wx.EmptyString, pos = wx.DefaultPosition, size = wx.Size( 309,437 ), style = wx.DEFAULT_DIALOG_STYLE )
+
+        self.SetSizeHints( wx.DefaultSize, wx.DefaultSize )
+
+        bSizer12 = wx.BoxSizer( wx.VERTICAL )
+
+        self.m_richText1 = wx.richtext.RichTextCtrl( self, wx.ID_ANY, _(u"Hey, you found the credits, congrats. It's just a little school project, but I still wanted to add some credit to it. So hi, I'm Eric from Germany. Here is my link to my GitHub page, so if you are interested, take a peek."), wx.DefaultPosition, wx.Size( 500,60 ), wx.TE_AUTO_URL|wx.TE_READONLY|wx.VSCROLL|wx.HSCROLL|wx.NO_BORDER|wx.WANTS_CHARS )
+        bSizer12.Add( self.m_richText1, 0, wx.EXPAND |wx.ALL, 5 )
+
+        self.credit_img = wx.StaticBitmap( self, wx.ID_ANY, wx.Bitmap( u"Pics/ゼロ 零 - 123991796 - カペラ：『頑張ったペットには特別な褒美があるよ〜』 (Klein).png", wx.BITMAP_TYPE_ANY ), wx.DefaultPosition, wx.DefaultSize, 0 )
+        bSizer12.Add( self.credit_img, 0, wx.ALL|wx.EXPAND, 5 )
+
+
+        self.SetSizer( bSizer12 )
+        self.Layout()
+
+        self.Centre( wx.BOTH )
+
+        # Connect Events
+        self.credit_img.Bind( wx.EVT_LEFT_DOWN, self.bitmap_credit_click )
+
+    def __del__( self ):
+        pass
+
+
+    # Virtual event handlers, override them in your derived class
+    def bitmap_credit_click( self, event ):
         event.Skip()
 
 
