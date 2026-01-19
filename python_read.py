@@ -1,13 +1,13 @@
 import wmi
 import platform
-
 import jsonizer
 import powershell
 
 
 
 class Hardware:
-    def __init__(self):
+    def __init__(self, ps_runner):
+        self.ps_runner = ps_runner
 
         def clean_powershell_output(raw_text, separator=", "):  #Gemini code
             if not raw_text:
@@ -17,7 +17,7 @@ class Hardware:
 
             return separator.join(clean_list)
 
-        daten_paket = powershell.runner.info_collector(self)
+        daten_paket = self.ps_runner.info_collector()
 
         hard_drive_size_worker = clean_powershell_output(daten_paket[7], separator=",")
         total_size_int = sum(int(zahl) for zahl in hard_drive_size_worker.split(","))
@@ -29,7 +29,7 @@ class Hardware:
         convert_to_GB_free = total_free_int / (1024**3)
         convert_to_GB_free_rounded = round(convert_to_GB_free, 2)
 
-        self.standart = [
+        self._standart = [
             ("Architecture", platform.architecture()[0]),
             ("Machine", platform.machine()),
             ("CPU", daten_paket[0]),
@@ -41,7 +41,7 @@ class Hardware:
         ]
 
 
-        self.info_windows = [
+        self._info_windows = [
             ("PC Name", platform.node()),
             ("System", platform.system()),
             ("Release", platform.release()),
@@ -52,7 +52,7 @@ class Hardware:
 
 
 
-        self.info_hardware = [
+        self._info_hardware = [
             ("Machine", platform.machine()),
             ("Architecture", platform.architecture()[0]),
             ("Motherboard", daten_paket[1]),
@@ -69,13 +69,26 @@ class Hardware:
 
         ]
 
-        self.info_extra = [
+        self._info_extra = [
             ("Detailed Name", platform.uname()),
             ("Alias", platform.system_alias(platform.system(), platform.release(), platform.version())),
             ("Version", platform.version())
         ]
 
-        self.selected_list = self.standart
+        self.selected_list = self.get_standart()
+
+    def get_standart(self):
+        return self._standart
+
+    def get_info_windows(self):
+        return self._info_windows
+
+    def get_info_hardware(self):
+        return self._info_hardware
+
+    def get_info_extra(self):
+        return self._info_extra
+
 
 class Software:
     def __init__(self):

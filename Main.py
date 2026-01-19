@@ -6,21 +6,23 @@ import powershell
 import time
 import webbrowser
 
+from python_read import Hardware
+
 start_time = time.time()
 
 
 
-class MainFrame(GUI.gui_box, python_read.Hardware, python_read.Software, powershell.runner):
+class MainFrame(GUI.gui_box):
     def __init__(self, parent):
         GUI.gui_box.__init__(self, parent)
-        python_read.Hardware.__init__(self)
-        # python_read.Software.__init__(self)
-        powershell.runner.__init__(self)
+        self.ps_runner = powershell.runner()
+        self.hardware = python_read.Hardware(self.ps_runner)
+        self.selected_list = self.hardware.get_standart()
         self.init_logic()
         self.adder()
         self.initializer = 0
         #powershell.runner.get_uuid(self) # TODO für denn jsonizer nutzen
-        MainFrame.SetTitle(self, "System Checker")
+        self.SetTitle("System Checker")
 
     def init_logic(self):
         self.gui_box.SetColLabelValue(0, "Info")
@@ -41,19 +43,19 @@ class MainFrame(GUI.gui_box, python_read.Hardware, python_read.Software, powersh
             grid.SetCellValue(row, 1, str(val))
 
     def active_standart( self, event ):
-        self.selected_list = self.standart
+        self.selected_list = self.hardware.get_standart()
         self.adder()
 
     def active_hardware(self, event):
-        self.selected_list = self.info_hardware
+        self.selected_list = self.hardware.get_info_hardware()
         self.adder()
 
     def active_windows( self, event ):
-        self.selected_list = self.info_windows
+        self.selected_list = self.hardware.get_info_windows()
         self.adder()
 
     def active_extra( self, event ):
-        self.selected_list = self.info_extra
+        self.selected_list = self.hardware.get_info_extra()
         self.adder()
 
     def resize(self):
@@ -84,7 +86,7 @@ class MainFrame(GUI.gui_box, python_read.Hardware, python_read.Software, powersh
 class Setting_Dlg(GUI.Settings_Dlg, powershell.runner):
     def __init__(self, parent):
         GUI.Settings_Dlg.__init__(self, parent)
-        Setting_Dlg.SetTitle(self, "System Options")
+        self.SetTitle("System Options")
 
 
     def windows_setting_task_manager_button_evnt( self, event ):
@@ -110,7 +112,7 @@ class Credit(GUI.Credit):
         GUI.Credit.__init__(self, parent)
         self.original_bmp = self.credit_img.GetBitmap()
         self.Bind(wx.EVT_SIZE, self.on_resize)
-        Credit.SetTitle(self, "Credits")
+        self.SetTitle("Credits")
 
     def bitmap_credit_click(self, event):
         webbrowser.open_new_tab("https://github.com/Tr4p-kun")
