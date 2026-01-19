@@ -6,8 +6,6 @@ import powershell
 import time
 import webbrowser
 
-from python_read import Hardware
-
 start_time = time.time()
 
 
@@ -141,7 +139,7 @@ def start():
     frm.Show()
     end_time = time.time()
     duration = end_time - start_time
-    print(duration)
+    print(f'Startup time: {duration}')
     app.MainLoop()
 
 

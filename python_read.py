@@ -1,7 +1,6 @@
-import wmi
 import platform
 import jsonizer
-import powershell
+
 
 
 
