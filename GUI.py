@@ -319,7 +319,7 @@ class Credit ( wx.Dialog ):
 
         bSizer12 = wx.BoxSizer( wx.VERTICAL )
 
-        self.m_richText1 = wx.richtext.RichTextCtrl( self, wx.ID_ANY, _(u"Hey, you found the credits, congrats. It's just a little school project, but I still wanted to add some credit to it. So hi, I'm Eric from Germany. Here is my link to my GitHub page, so if you are interested, take a peek."), wx.DefaultPosition, wx.Size( 500,60 ), wx.TE_AUTO_URL|wx.TE_READONLY|wx.VSCROLL|wx.HSCROLL|wx.NO_BORDER|wx.WANTS_CHARS )
+        self.m_richText1 = wx.richtext.RichTextCtrl( self, wx.ID_ANY, _(u"Hey, you found the credits, congrats. It's just a little school project, but I still wanted to add some credit to it. So hi, I'm Eric from Germany. Here is my link to my GitHub page, so if you are interested, take a peek."), wx.DefaultPosition, wx.Size( 500,90 ), wx.TE_AUTO_URL|wx.TE_READONLY|wx.VSCROLL|wx.HSCROLL|wx.NO_BORDER|wx.WANTS_CHARS )
         bSizer12.Add( self.m_richText1, 0, wx.EXPAND |wx.ALL, 5 )
 
         self.credit_img = wx.StaticBitmap( self, wx.ID_ANY, wx.Bitmap( u"Pics/ゼロ 零 - 123991796 - カペラ：『頑張ったペットには特別な褒美があるよ〜』 (Klein).png", wx.BITMAP_TYPE_ANY ), wx.DefaultPosition, wx.DefaultSize, 0 )

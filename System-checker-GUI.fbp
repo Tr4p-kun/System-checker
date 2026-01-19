@@ -1224,7 +1224,7 @@
             <property name="pos"></property>
             <property name="resize">Resizable</property>
             <property name="show">1</property>
-            <property name="size">500,60</property>
+            <property name="size">500,90</property>
             <property name="style">wxTE_AUTO_URL|wxTE_READONLY</property>
             <property name="subclass">; ; forward_declare</property>
             <property name="toolbar_pane">0</property>

@@ -126,8 +126,8 @@ class Credit(GUI.Credit):
 
     def on_resize(self, event): # gemini
         size = self.GetClientSize()
-        new_w = size.x - 20
-        new_h = size.y - 95
+        new_w = size.x - 0
+        new_h = size.y - 120
         if new_w > 0 and new_h > 0:
             new_bmp = self.scale_bitmap(self.original_bmp, new_w, new_h)
             self.credit_img.SetBitmap(new_bmp)
