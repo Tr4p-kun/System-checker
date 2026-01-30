@@ -89,10 +89,10 @@ class Hardware:
         return self._info_extra
 
 
-class Software:
-    def __init__(self):
-        self.wmi_process()
-        jsonizer.converter.jsoner(self)
+#class Software:
+    # def __init__(self):
+    #     self.wmi_process()
+    #     jsonizer.converter.jsoner(self)
 
 
     # def wmi_process(self):
